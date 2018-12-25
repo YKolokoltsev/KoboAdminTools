@@ -34,10 +34,10 @@ echo "**********************************************"
 echo "Creating mongo and postgres backups"
 
 CNAME=`koboadm_cname mongo`
-docker exec -it kobodocker_mongo_1 /srv/backup_mongo.bash
+docker exec -it ${CNAME} /srv/backup_mongo.bash
 
 CNAME=`koboadm_cname postgres`
-docker exec -it kobodocker_postgres_1 /srv/backup_postgres.bash
+docker exec -it ${CNAME} /srv/backup_postgres.bash
 
 # full server restart
 echo "**********************************************"
