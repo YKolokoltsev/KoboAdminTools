@@ -5,7 +5,10 @@ ABOUT
 For the moment KoboToolbox is a living project with limited backward compatibility. At any moment the next update of the Kobo Server can bring inconsistency with it's previous databases, update it's REST API or even leave support of it's previous mobile client.
 
 The KoboAdminTools is a script package created to automate routine operations of Kobo Server administration and to increase it’s stability. Another, collateral advantage of the KoboAdminTools is to protect administrators from mechanical errors caused by the human factor. Irreversible operations contain automatic checklist of the most important actions that may precede before the changes take place. Within KoboAdminTools repository the best found administration strategies may be discussed and implemented.
-Installation of the KoboAdminTools
+
+
+INSTALLATION
+
 The KoboAdminTools is just a folder with bash scripts, it does not require any specific installation. However, it is recommended to use the latest version of the Pgquarrel (https://eulerto.github.io/pgquarrel/) utility that can be used for PostgreSQL database schema comparison. After the script package download, it is required to create a kobo-server.lnk file in the script folder. This shell be a symbolic link to the configured KoboDocker folder, that will be the target server for all scripts.
 
 ```
