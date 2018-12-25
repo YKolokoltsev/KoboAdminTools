@@ -21,6 +21,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # check for the KOBO_SERVER_ROOT_DIR environment variable
+export KOBO_SERVER_ROOT_DIR=`readlink -f kobo-server.lnk`
 koboadm_check_server_root(){
     if [ ! -f "${KOBO_SERVER_ROOT_DIR}/docker-compose.yml" ] && [ ! -f "${KOBO_SERVER_ROOT_DIR}/docker-compose.yaml" ]
     then 
