@@ -12,6 +12,8 @@ source ${ADMIN_DIR}/functions.sh
 # check that postgres component is running
 if ! koboadm_check_components_up "postgres"; then exit 1; fi
 
+PG_NAME=`koboadm_cname postgres`
+
 if [ "$#" -ne 2 ]
 then
     echo "Usage:"
@@ -32,7 +34,7 @@ then
     echo
     echo
     echo ">>> Backups:"
-    docker exec -it kobodocker_postgres_1 bash -c "ls /srv/backups/"
+    docker exec -it ${PG_NAME} bash -c "ls /srv/backups/"
     
     exit 0
 fi
@@ -40,16 +42,16 @@ fi
 # check database dump argument
 DUMP=${2}
 
-if docker exec -it kobodocker_postgres_1 \
+if docker exec -it ${PG_NAME} \
 bash -c " if [ -f /srv/backups/${DUMP} ]; then exit 1; else exit 0; fi "
 then
     echo "The dump file '${DUMP}' is not present in the /srv/backups/"
     echo "The next dumps are accessible: "
-    docker exec -it kobodocker_postgres_1 bash -c "ls /srv/backups/"
+    docker exec -it ${PG_NAME} bash -c "ls /srv/backups/"
     exit 0
 else
     echo "Found:"
-    docker exec -it kobodocker_postgres_1 \
+    docker exec -it ${PG_NAME} \
     bash -c "ls -alh /srv/backups/${DUMP}"
     echo
 fi
@@ -57,7 +59,7 @@ fi
 # check if database already exist
 DBNAME=${1}
 
-if docker exec -it kobodocker_postgres_1 \
+if docker exec -it ${PG_NAME} \
 bash -c "psql --user=postgres -d ${DBNAME} --single-transaction --command=\"\"" 1> /dev/null
 then
     if [ "${DBNAME}" == "kobotoolbox" ]; then echo -e "${RED}WARNING: you are about to replace the main KoboToolbox database!${NC}"; fi
@@ -78,5 +80,5 @@ QUERY="CREATE DATABASE ${DBNAME} OWNER kobo;"
 koboadm_send_psql_query "$QUERY"
 
 # import backup into the new database
-docker exec -it kobodocker_postgres_1 \
+docker exec -it ${PG_NAME} \
 bash -c "pg_restore --verbose --no-acl --no-owner -U kobo -d $DBNAME /srv/backups/${DUMP}"

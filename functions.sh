@@ -38,7 +38,7 @@ cd "${KOBO_SERVER_ROOT_DIR}"
 
 echo
 echo "KoboToolboxAdmin functions loaded"
-echo "KOBO_SERVER_ROOT_DIR = ${KOBO_SERVER_ROOT_DIR}"
+echo -e "KOBO_SERVER_ROOT_DIR = ${YELLOW}${KOBO_SERVER_ROOT_DIR}${NC}"
 echo
 
 # check that each server component is running
@@ -93,4 +93,17 @@ koboadm_send_psql_query(){
     local QUERY="$@"
     docker exec -it ${CNAME} \
     bash -c "psql --user postgres -P pager=off --single-transaction --command=\"$QUERY\""
+}
+
+# check if the file given by second parameter is reachable 
+# on the container (first parameter)
+koboadm_check_container_file(){
+    CNAME="${1}"
+    FILE_PATH="${2}"
+    if docker exec -it ${CNAME} bash -c "[ ! -f \"${FILE_PATH}\" ]"
+    then
+        echo "File ${FILE_PATH} is not accessible on the ${CNAME} container"
+        return 1
+    fi
+    return 0
 }
