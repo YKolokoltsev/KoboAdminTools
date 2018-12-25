@@ -64,12 +64,12 @@ Short guide for KoboDocker clean installation:
 
 Short migration guide from the Kobo server A to another server B:
 1. A: `run dump-store.sh`
-2. Copy postreg dump from `A/backups/postgres` to the `B/backups/postgres`
-3. B: run `dump-deploy.sh`
+2. Copy postgres dump from `A/backups/postgres` to the `B/backups/postgres`
+3. B: run `import_pgdb.sh`
 4. B: run `pgquarrel`
 
 Depending on the `pgquarrel` results there are two different scenario of what to do next:
 
 (I) The `pgquarrel` reports that there are no difference between the main B database and the imported one. In this case it is possible to safely use the `dump-deploy.sh` on the server B.
 
-(II) If there are differences, it is possible to fix them manually within the temporary database usung pure SQL. That will not require to shot down the server B, because all required actions shell not affect active `kobotoolbox` database. After migration it may be necessary to recover the mongoDB data. Use the `stop-frontend.sh` script on the server B, remove kobotoolbox database and rename the temporary database to `kobotoolbox`. Afterwards – generate new mongoDB data. Use `import-user-media.sh` script to deploy user data files.
+(II) If there are differences, it is possible to fix them manually within the temporary database usung pure SQL. That will not require to shot down the server B, because all required actions shell not affect active `kobotoolbox` database. After migration it may be necessary to recover the mongoDB data. Use the `stop-frontend.sh` script on the server B, remove `kobotoolbox` database and rename the temporary database to `kobotoolbox`. Afterwards – generate new mongoDB data. Use `import-user-media.sh` script to deploy user data files and prey.
