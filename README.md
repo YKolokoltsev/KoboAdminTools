@@ -1,6 +1,7 @@
 # KoboAdminTools
 
 ABOUT
+
 For the moment KoboToolbox is a living project with limited backward compatibility. At any moment the next update of the Kobo Server can bring inconsistency with it's previous databases, update it's REST API or even leave support of it's previous mobile client.
 The KoboAdminTools is a script package created to automate routine operations of Kobo Server administration and to increase it’s stability. Another, collateral advantage of the KoboAdminTools is to protect administrators from mechanical errors caused by the human factor. Irreversible operations contain automatic checklist of the most important actions that may precede before the changes take place. Within KoboAdminTools repository the best found administration strategies may be discussed and implemented.
 Installation of the KoboAdminTools
@@ -15,7 +16,9 @@ cmake .
 make
 ppath=`pwd` && sudo ln -s ${ppath}/pgquarrel /usr/local/bin/pgquarrel
 
+
 REFERENCE
+
 - dump-store.sh
 This script automates creation of the complete 100% self-consistent Kobo Server backup on the running server. The core idea of this script is to stop the Kobo front-end services (“nginx”, "kobocat" "kpi" "enketo_express" "rabbit") in the correct order to protect databases from any client access during the backup.
 - stop-frontend.sh
@@ -30,6 +33,7 @@ This script deploys three dump files for postgres, mongo, and user media onto th
 In this short script the kobocat user media archive will replace all KoboCat data files. This can be a dangerous operation, so some notifications were made to prevent data-loss.
 - functions.sh
 In this file some common bash functions are stored. It is possible to ‘source’ this script in the current shell session to simplify some of the lo-level routine operations. Please see the functions.sh source code to check for the functions list and their description.
+
 
 COMMON RECIPES
 
