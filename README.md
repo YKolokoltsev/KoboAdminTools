@@ -27,14 +27,19 @@ REFERENCE
 This script automates creation of the complete 100% self-consistent Kobo Server backup on the running server. The core idea of this script is to stop the Kobo front-end services (“nginx”, "kobocat" "kpi" "enketo_express" "rabbit") in the correct order to protect databases from any client access during the backup.
 
 `- stop-frontend.sh`
+
 For the case of any manual changes within active databases on the production server it is also strongly recommended to stop the frontend. This operation alone is automated with ‘stop-frontend.sh’.
 
-- import-pgdb.sh
+- `import-pgdb.sh`
+
 To compare the current main Postgres database (it’s name is ‘kobotoolbox’) with any other version of this database given by the dump file, it is required to install this dump on one of the working Postgres server. This script will install any postgres dump onto the running production database making the new independent database with a user-specified name.
 
-- dump-deploy.sh
+- `dump-deploy.sh`
+
 This script deploys three dump files for postgres, mongo, and user media onto the running Kobo server. Taking in account that this operation is associated with increased data-loss risk, here some additional actions are proposed to prevent appearance of the unrecoverable state.
-- import-user-media.sh
+
+- `import-user-media.sh`
+
 In this short script the kobocat user media archive will replace all KoboCat data files. This can be a dangerous operation, so some notifications were made to prevent data-loss.
 - functions.sh
 In this file some common bash functions are stored. It is possible to ‘source’ this script in the current shell session to simplify some of the lo-level routine operations. Please see the functions.sh source code to check for the functions list and their description.
