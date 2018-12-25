@@ -7,15 +7,16 @@ The KoboAdminTools is a script package created to automate routine operations of
 Installation of the KoboAdminTools
 The KoboAdminTools is just a folder with bash scripts, it does not require any specific installation. However, it is recommended to use the latest version of the Pgquarrel (https://eulerto.github.io/pgquarrel/) utility that can be used for PostgreSQL database schema comparison. After the script package download, it is required to create a kobo-server.lnk file in the script folder. This shell be a symbolic link to the configured KoboDocker folder, that will be the target server for all scripts.
 
-
-`git clone https://github.com/YKolokoltsev/KoboAdminTools.git ./
+``
+git clone https://github.com/YKolokoltsev/KoboAdminTools.git ./
 ln -s <path_to_kobo-docker> kobo-server.lnk
 mkdir pgquarrel && cd pgquarrel
 sudo apt-get install postgresql-server-dev-all (Ubuntu)
 git clone https://github.com/eulerto/pgquarrel.git ./
 cmake .
 make
-ppath=`pwd` && sudo ln -s ${ppath}/pgquarrel /usr/local/bin/pgquarrel`
+ppath=`pwd` && sudo ln -s ${ppath}/pgquarrel /usr/local/bin/pgquarrel
+``
 
 
 REFERENCE
