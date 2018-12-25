@@ -22,11 +22,11 @@ ppath=`pwd` && sudo ln -s ${ppath}/pgquarrel /usr/local/bin/pgquarrel
 
 REFERENCE
 
-`- dump-store.sh`
+- `dump-store.sh`
 
 This script automates creation of the complete 100% self-consistent Kobo Server backup on the running server. The core idea of this script is to stop the Kobo front-end services (“nginx”, "kobocat" "kpi" "enketo_express" "rabbit") in the correct order to protect databases from any client access during the backup.
 
-`- stop-frontend.sh`
+- `stop-frontend.sh`
 
 For the case of any manual changes within active databases on the production server it is also strongly recommended to stop the frontend. This operation alone is automated with ‘stop-frontend.sh’.
 
@@ -41,28 +41,32 @@ This script deploys three dump files for postgres, mongo, and user media onto th
 - `import-user-media.sh`
 
 In this short script the kobocat user media archive will replace all KoboCat data files. This can be a dangerous operation, so some notifications were made to prevent data-loss.
-- functions.sh
+
+- `functions.sh`
+
 In this file some common bash functions are stored. It is possible to ‘source’ this script in the current shell session to simplify some of the lo-level routine operations. Please see the functions.sh source code to check for the functions list and their description.
 
 
 COMMON RECIPES
 
 Short guide for KoboDocker clean installation:
-1. git clone https://github.com/kobotoolbox/kobo-docker.git
-2. ln -s docker-compose.local.yml docker-compose.yml
-3. docker-compose pull
-4. Edit: envfile.local.txt, envfile.server.txt
-5. Put ‘KOBO_POSTGRES_DB_NAME=kobotoolbox’ into both environment files
-6. Edit the *.yml files to map all three database ports to the local host
+1. `git clone https://github.com/kobotoolbox/kobo-docker.git`
+2. `ln -s docker-compose.local.yml docker-compose.yml`
+3. `docker-compose pull`
+4. Edit: `envfile.local.txt`, `envfile.server.txt`
+5. Put `KOBO_POSTGRES_DB_NAME=kobotoolbox` into both environment files
+6. Edit the `*.yml` files to map all three database ports to the local host
 7. Configure ssh tunnels to these ports to have direct remote access to production server databases
 8. Run the new server in local mode so that it fills it’s databases with the most recent clean schemes
 
 Short migration guide from the Kobo server A to another server B:
-1. A: run dump-store.sh
-2. Copy postreg dump from A/backups/postgres to the B/backups/postgres
-3. B: run dump-deploy.sh
-4. B: run pgquarrel
+1. A: `run dump-store.sh`
+2. Copy postreg dump from `A/backups/postgres` to the `B/backups/postgres`
+3. B: run `dump-deploy.sh`
+4. B: run `pgquarrel`
 
-Depending on the pgquarrel results there are two different scenario of what to do next:
-(I) The pgquarrel reports that there are no difference between the main database and the imported one. In this case it is possible to safely use the dump-deploy.sh on the server B.
-(II) If there are differences, it is possible to fix them manually within the temporary database usung pure SQL. That will not require to shot down the server B, because all required actions shell not affect active kobotoolbox database. After migration it may be necessary to recover the mongoDB data. Use the stop-frontend.sh script on the server B, remove kobotoolbox database and rename the temporary database to kobotoolbox. Afterwards – generate new mongoDB data. Use import-user-media.sh script to deploy user data files.
+Depending on the `pgquarrel` results there are two different scenario of what to do next:
+
+(I) The `pgquarrel` reports that there are no difference between the main B database and the imported one. In this case it is possible to safely use the `dump-deploy.sh` on the server B.
+
+(II) If there are differences, it is possible to fix them manually within the temporary database usung pure SQL. That will not require to shot down the server B, because all required actions shell not affect active `kobotoolbox` database. After migration it may be necessary to recover the mongoDB data. Use the `stop-frontend.sh` script on the server B, remove kobotoolbox database and rename the temporary database to `kobotoolbox`. Afterwards – generate new mongoDB data. Use `import-user-media.sh` script to deploy user data files.
