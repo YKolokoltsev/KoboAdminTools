@@ -32,6 +32,7 @@ In this short script the kobocat user media archive will replace all KoboCat dat
 In this file some common bash functions are stored. It is possible to ‘source’ this script in the current shell session to simplify some of the lo-level routine operations. Please see the functions.sh source code to check for the functions list and their description.
 
 COMMON RECIPES
+
 Short guide for KoboDocker clean installation:
 1. git clone https://github.com/kobotoolbox/kobo-docker.git
 2. ln -s docker-compose.local.yml docker-compose.yml
