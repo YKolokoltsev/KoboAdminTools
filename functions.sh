@@ -82,9 +82,15 @@ koboadm_stop_components(){
     done
 }
 
+# find real component name
+koboadm_cname(){
+    docker-compose ps | grep ${1} | awk '{ print $1 }'
+}
+
 # send postgres query
 koboadm_send_psql_query(){
+    CNAME=`koboadm_cname postgres`
     local QUERY="$@"
-    docker exec -it kobodocker_postgres_1 \
+    docker exec -it ${CNAME} \
     bash -c "psql --user postgres -P pager=off --single-transaction --command=\"$QUERY\""
 }
