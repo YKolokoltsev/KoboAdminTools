@@ -9,7 +9,7 @@ The KoboAdminTools is a script package created to automate routine operations of
 
 INSTALLATION
 
-The KoboAdminTools is just a folder with bash scripts, it does not require any specific installation. However, it is recommended to use the latest version of the Pgquarrel (https://eulerto.github.io/pgquarrel/) utility that can be used for PostgreSQL database schema comparison. After the script package download, it is required to create a kobo-server.lnk file in the script folder. This shell be a symbolic link to the configured KoboDocker folder, that will be the target server for all scripts.
+The KoboAdminTools is just a folder with bash scripts, it does not require any specific installation. However, it is recommended to use the latest version of Pgquarrel (https://eulerto.github.io/pgquarrel/) - utility that can be used for PostgreSQL database schema comparison. After the script package download, it is required to create a `kobo-server.lnk` file in the script folder. This shell be a symbolic link to the configured KoboDocker folder, that will be the target server for all scripts.
 
 ```
 git clone https://github.com/YKolokoltsev/KoboAdminTools.git ./
@@ -31,23 +31,23 @@ This script automates creation of the complete 100% self-consistent Kobo Server 
 
 - `stop-frontend.sh`
 
-For the case of any manual changes within active databases on the production server it is also strongly recommended to stop the frontend. This operation alone is automated with ‘stop-frontend.sh’.
+For the case of any manual changes within active databases on the production server it is also strongly recommended to stop the frontend. This operation alone is automated with `stop-frontend.sh`.
 
 - `import-pgdb.sh`
 
-To compare the current main Postgres database (it’s name is ‘kobotoolbox’) with any other version of this database given by the dump file, it is required to install this dump on one of the working Postgres server. This script will install any postgres dump onto the running production database making the new independent database with a user-specified name.
+To compare the current main Postgres database (it’s name is `kobotoolbox`) with any other version of this database given by the dump file, it is required to install this dump on any working Postgres server. This script will install selected postgres dump onto the running production postgres server creating the new independent database with a user-specified name.
 
 - `dump-deploy.sh`
 
-This script deploys three dump files for postgres, mongo, and user media onto the running Kobo server. Taking in account that this operation is associated with increased data-loss risk, here some additional actions are proposed to prevent appearance of the unrecoverable state.
+This script deploys three dump files for postgres, mongo, and user media onto the running Kobo server. Taking in account that this operation is associated with increased data-loss risk, some additional actions are proposed to prevent appearance of the unrecoverable state.
 
 - `import-user-media.sh`
 
-In this short script the kobocat user media archive will replace all KoboCat data files. This can be a dangerous operation, so some notifications were made to prevent data-loss.
+In this short script the kobocat user media archive will replace all KoboCat data files. This can be a dangerous operation, so some notifications proposed to prevent data-loss.
 
 - `functions.sh`
 
-In this file some common bash functions are stored. It is possible to ‘source’ this script in the current shell session to simplify some of the lo-level routine operations. Please see the functions.sh source code to check for the functions list and their description.
+In this file the Kobo-specific bash functions are stored. It is possible to `source functions.sh` in the current shell session to simplify some of the lo-level operations. Please see the `functions.sh` source code to check for the functions list and their description.
 
 
 COMMON RECIPES
