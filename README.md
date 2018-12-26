@@ -27,7 +27,7 @@ REFERENCE
 
 - `dump-store.sh`
 
-This script automates creation of the complete 100% self-consistent Kobo Server backup on the running server. The core idea of this script is to stop the Kobo front-end services (“nginx”, "kobocat" "kpi" "enketo_express" "rabbit") in the correct order to protect databases from any client access during the backup.
+This script automates creation of the complete 100% self-consistent Kobo Server backup on the running server. The core idea of this script is to stop the Kobo front-end services (`nginx`, `kobocat`, `kpi`, `enketo_express`, `rabbit`) in the correct order to protect databases from any client access during the backup.
 
 - `stop-frontend.sh`
 
