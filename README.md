@@ -85,6 +85,7 @@ Depending on the `pgquarrel` results there are two different scenario of what to
 LINKS
 
 https://github.com/kobotoolbox/kobo-docker
-https://www.kobowiki.org/index.php?title=KoBo_software_upgrade
-https://community.kobotoolbox.org/c/kobo-developers
 
+https://www.kobowiki.org/index.php?title=KoBo_software_upgrade
+
+https://community.kobotoolbox.org/c/kobo-developers
