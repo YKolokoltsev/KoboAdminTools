@@ -14,7 +14,6 @@ if ! koboadm_check_components_up "${DATABASES_ARR[@]}"; then exit 1; fi
 echo "**********************************************"
 echo "Stopping server to the outside world and archiving user media:"
 koboadm_stop_components "${SRV}"
-sleep 5
 CNAME=`koboadm_cname kobocat`
 docker exec -it ${CNAME} /srv/src/kobocat/docker/backup_media.bash
 
@@ -50,5 +49,4 @@ echo "**********************************************"
 echo -e "${YELLOW}Checklist:${NC}"
 echo -e "${YELLOW} 1. Verify ${KOBO_SERVER_ROOT_DIR}/backups subfolders for new backup files.${NC}"
 echo -e "${YELLOW} 2. Check that postgres backup has it's size >250kb.${NC}"
-echo -e "${YELLOW} 3. Before migrate this dump to remote Kobo server, first use${NC}"
-echo -e "${YELLOW}    import_pgdb.sh and apply pgquarrel test on the remote machine.${NC}"
+echo -e "${YELLOW} 3. Do not migrate this backup to another KoboDocker version without verification"

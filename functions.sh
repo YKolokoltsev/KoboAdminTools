@@ -99,12 +99,26 @@ koboadm_send_psql_query(){
 # check if the file given by second parameter is reachable 
 # on the container (first parameter)
 koboadm_check_container_file(){
-    CNAME="${1}"
+    CNAME=`koboadm_cname ${1}`
     FILE_PATH="${2}"
     if docker exec -it ${CNAME} bash -c "[ ! -f \"${FILE_PATH}\" ]"
     then
         echo "File ${FILE_PATH} is not accessible on the ${CNAME} container"
         return 1
+    fi
+    return 0
+}
+
+# list files that are stored in the specified container folder
+koboadm_ls(){
+    CNAME=`koboadm_cname ${1}`
+    FOLDER_PATH="${2}"
+    if docker exec -it ${CNAME} bash -c "[ ! -d \"${FOLDER_PATH}\" ]"
+    then
+        echo "Folder ${FOLDER_PATH} not present in container ${CNAME}"
+        return 1
+    else
+        docker exec -it ${CNAME} bash -c "ls -alh /srv/backups"
     fi
     return 0
 }
