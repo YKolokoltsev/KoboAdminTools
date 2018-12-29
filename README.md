@@ -61,19 +61,19 @@ COMMON RECIPES
 
 Short guide for KoboDocker clean installation:
 1. `git clone https://github.com/kobotoolbox/kobo-docker.git`
-2. `ln -s docker-compose.local.yml docker-compose.yml`
-3. `docker-compose pull`
-4. Edit: `envfile.local.txt`, `envfile.server.txt`
-5. Put `KOBO_POSTGRES_DB_NAME=kobotoolbox` into both environment files
-6. Edit the `*.yml` files to map all three database ports to the local host
+2. Check: `sdiff -s docker-compose.local.yml docker-compose.server.yml | grep image`
+3. Edit *.yml files (ports, extra_hosts)
+4. `ln -s docker-compose.<?>.yml docker-compose.yml`
+5. Edit `envfile.<?>.txt` files, append `KOBO_POSTGRES_DB_NAME=kobotoolbox`
+6. `docker-compose pull`
 7. Configure ssh tunnels to these ports to have direct remote access to production server databases
-8. Run the new server in local mode so that it fills it’s databases with the most recent clean schemes
+8. Run the new server (better in server mode) so it fills it’s databases with the most recent clean schemes
 
-Short migration guide from the Kobo server A to another server B:
+Short migration guide from the Kobo server A to another server B (aka Server Update):
 1. A: `run dump-store.sh`
 2. Copy backup files from `A/backups/` to the `B/backups/`
 3. B: run `import_pgdb.sh`
-4. B: run `pgquarrel`
+4. B:`pgquarrel -c pgquarrel_test.ini`
 
 Depending on the `pgquarrel` results there are two different scenario of what to do next:
 
