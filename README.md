@@ -52,9 +52,9 @@ In this short script the kobocat user media archive will replace all KoboCat dat
 Re-create Mongo database from Postgress data can be useful if there is no valid mongo backup, or the postrges database was migrated onto the
 new server.
 
-- `functions.sh`
+- `print_network.sh`
 
-In this file the Kobo-specific bash functions are stored. It is possible to `source functions.sh` in the current shell session to simplify some of the lo-level operations. Please see the `functions.sh` source code to check for the functions list and their description.
+The docker-compose creates a virtual network when running. To inspect traffic within this network it is required to know at least a network interface name and it’s IP for each component. This script prints a corresponding table.
 
 
 COMMON RECIPES
